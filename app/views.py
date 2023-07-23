@@ -1,16 +1,16 @@
 import json
 
-from flask import redirect, Response
+from flask import redirect, Response, request
 
 from app import app
 from .models import Link
 from .utils import generate_slug, validate_url
 
 
-@app.route('/api/generate_short_url/<url>')
+@app.route('/api/generate_short_url', methods=['POST'])
 def get_short_url(url):
     """This view generate slug and returning short url"""
-    exist_url = Link.get_or_none(Link.long_url == url)
+    exist_url = Link.get_or_none(Link.long_url == request.get_json().get('url'))
     if exist_url:
         return str(exist_url)
     if not validate_url(url):
