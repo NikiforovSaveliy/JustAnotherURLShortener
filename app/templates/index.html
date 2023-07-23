@@ -25,9 +25,9 @@
     xhr.onload = function() {
         console.log(`Статус: ${xhr.status}; Результат: ${xhr.response}`);
         if (xhr.status == 200) {
-            out.textContent = `Ваша ссылка: ${xhr.response}`
+            out.textContent = `Short URL: ${xhr.response}`
         } else {
-            alert("your url link is invalid")
+            alert("Your URL link is invalid ♿")
         }
     };
     xhr.onerror = function() {
