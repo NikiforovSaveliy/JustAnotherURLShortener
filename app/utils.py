@@ -14,7 +14,4 @@ def generate_slug(length=7) -> str:
 
 
 def validate_url(url: str) -> bool:
-    try:
-        return validators.url(url)
-    except validators.ValidationFailure:
-        return False
+    return bool(validators.url(url))
