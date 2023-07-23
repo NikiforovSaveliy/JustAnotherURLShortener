@@ -16,17 +16,19 @@
         const input = document.getElementById("myInput")
         const btn = document.getElementById("btn")
         const xhr = new XMLHttpRequest();
-            xhr.onload = function() {
-                console.log(`Статус: ${xhr.status}; Результат: ${xhr.response}`)
-                input.value = JSON.parse(xhr.response).urlv
-            };
-            xhr.onerror = function() {
-                console.log('Ошибка запроса');
-            };
-        xhr.open("post", "/api/generate_short_url", true);
+        xhr.onload = function() {
+            console.log(`Статус: ${xhr.status}; Результат: ${xhr.response}`);
+            input.value = xhr.response
+        };
+        xhr.onerror = function() {
+            console.log('Ошибка запроса');
+        };
+        // xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.open("POST", "/api/generate_short_url", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
         btn.addEventListener("click", () => {
-            let obj = {'url' : `${input.value}`}
-            xhr.send(JSON.stringify(obj));
+            let obj = JSON.stringify({"url" : `${input.value}`})
+            xhr.send(obj);
         })
     </script>
 </form>
