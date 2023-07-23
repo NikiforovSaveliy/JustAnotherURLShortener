@@ -30,6 +30,7 @@ def redirect_to_original(url):
     original_link = Link.get_or_none(Link.short_url == url)
     if original_link:
         return redirect(original_link.long_url)
+    return redirect('/not_found')
 
 
 @app.route('/')
@@ -37,3 +38,8 @@ def main_page():
     return app.response_class(response=json.dumps({'message': 'hello_word'}),
                               mimetype='application/json',
                               status=200)
+
+
+@app.route('/not_found')
+def not_found_page():
+    return 'Your url was not found... :('
