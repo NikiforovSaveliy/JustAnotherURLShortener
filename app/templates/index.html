@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>JAUS</title>
 </head>
 <body>
-    <h1>Hello world</h1>
+<h1>JUST ANOTHER URL SHORTENER</h1>
+
+<form id="myForm">
+    <label for="myInput">Enter your URL: </label>
+    <input type="text" id="myInput"/>
+    <button type="submit" id="btn">SHORT!!!!</button>
+    <script type="text/javascript">
+        const input = document.getElementById("myInput")
+        const btn = document.getElementById("btn")
+        const xhr = new XMLHttpRequest();
+            xhr.onload = function() {
+                console.log(`Статус: ${xhr.status}; Результат: ${xhr.response}`)
+                input.value = JSON.parse(xhr.response).urlv
+            };
+            xhr.onerror = function() {
+                console.log('Ошибка запроса');
+            };
+        xhr.open("post", "/api/generate_short_url", true);
+        btn.addEventListener("click", () => {
+            let obj = {'url' : `${input.value}`}
+            xhr.send(JSON.stringify(obj));
+        })
+    </script>
+</form>
+
+
 </body>
 </html>
