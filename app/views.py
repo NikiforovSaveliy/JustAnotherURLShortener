@@ -1,6 +1,6 @@
 import json
 
-from flask import redirect, Response, request
+from flask import redirect, Response, request, render_template
 
 from app import app
 from .models import Link
@@ -36,12 +36,10 @@ def redirect_to_original(url):
 @app.route('/')
 def main_page():
     """main page of web app"""
-    return app.response_class(response=json.dumps({'message': 'hello_word'}),
-                              mimetype='application/json',
-                              status=200)
+    return render_template('index.html')
 
 
 @app.route('/not_found')
 def not_found_page():
     """page which occured if url is not in database"""
-    return 'Your url was not found... :('
+    return render_template('not_found_page.html')
