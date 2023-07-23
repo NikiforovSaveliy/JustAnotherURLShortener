@@ -12,6 +12,7 @@ def get_short_url():
     """This view generate slug and returning short url"""
     url = request.get_json().get('url')
     exist_url = Link.get_or_none(Link.long_url == url)
+    # FIXME: Check if colussion occured
     if exist_url:
         return str(exist_url)
     if not validate_url(url):

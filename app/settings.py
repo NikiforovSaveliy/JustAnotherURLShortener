@@ -6,3 +6,4 @@ SLUG_LENGTH = 6
 DOMAIN = ''
 
 # TODO make settings with env file :_(
+# FIXME: use these settings :^)
