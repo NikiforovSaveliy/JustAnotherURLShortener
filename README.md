@@ -12,10 +12,6 @@ It was really funny to writing 3 hours in row.
 pip install -r requirements.txt
 ```
 
-### Create tables for correct work
-```bash
-python manage_models.py
-```
 
 ### Run server
 
