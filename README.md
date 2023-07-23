@@ -20,3 +20,7 @@ To run a development server just complete these script:
 ```bash
 flask --app app run --reload
 ```
+
+### FunFacts
+
+This is just experiment of flask capability with orm's and other stuff 
