@@ -32,12 +32,15 @@ def redirect_to_original(url):
         return redirect(original_link.long_url)
     return redirect('/not_found')
 
+@app.route('/style.css')
+def style_page():
+    """main style of web app"""
+    return render_template('style.css')
 
 @app.route('/')
 def main_page():
     """main page of web app"""
     return render_template('index.html')
-
 
 @app.route('/not_found')
 def not_found_page():

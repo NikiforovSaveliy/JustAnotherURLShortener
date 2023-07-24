@@ -3,6 +3,7 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/style.css">
     <title>JAUS</title>
 </head>
 <body>
@@ -15,17 +16,27 @@
 <label for="myInput">Enter your URL: </label>
 <input type="text" id="myInput"/>
 <button type="submit" id="btn">SHORT!!!!</button>
-<p id="output"></p>
+<div class="result">
+    <span id="outputText"></span>
+    <a id="output" href=""></a>
+</div>
 
 <script type="text/javascript">
     const input = document.getElementById("myInput")
     const btn = document.getElementById("btn")
     const out = document.getElementById("output")
+    const outText = document.getElementById("outputText")
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
         console.log(`Статус: ${xhr.status}; Результат: ${xhr.response}`);
         if (xhr.status == 201) {
-            out.textContent = `your url link: ${JSON.parse(xhr.response)["url"]}`
+            let resultLink = "http://" + JSON.parse(xhr.response)["url"]
+            outText.textContent = `your url link: `
+            out.textContent = resultLink
+            out.href = resultLink
+        } else if (xhr.status == 400) {
+            window.location.href="/not_found"
+            alert("Your URL link is invalid ♿")
         } else {
             alert("Your URL link is invalid ♿")
         }
