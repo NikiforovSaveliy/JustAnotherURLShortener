@@ -44,7 +44,8 @@ def not_found_page():
     """page which occured if url is not in database"""
     return render_template('not_found_page.html')
 
+
 @app.route('/css/<file_name>')
 def css_retrieve(file_name):
     """This view for retrieve files from static directory"""
-    return send_from_directory('statics', file_name)
+    return send_from_directory('statics/css', file_name)
