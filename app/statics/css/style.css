@@ -1,9 +1,61 @@
 * {
     margin: 0;
     padding: 0;
-    background-color: blue;
 }
 
-h1 {
-    background-color: red;
+body {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(27, 32, 32);
+}
+
+.container {
+    background-color: rgb(2, 2, 2);
+    border: 3px black solid;
+    border-radius: 15px;
+    height: 200px;
+    padding: 20px;
+}
+
+.formInput, .formError, .result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.formInput > h1, .formError > h1, .formInput > span, .result > span {
+    color: white;
+}
+
+#myInput {
+    background: transparent;
+    border: 1px gray solid;
+    border-radius: 5px;
+    color: white;
+    font-size: 24px;
+}
+
+#btn {
+    background-color: orange;
+    width: 150px;
+    height: 20px;
+    border: 0px;
+    border-radius: 10px;
+    transition: 0.5s ease-in-out;
+}
+
+#btn:hover {
+    transform: scale(1.2, 1.2)
+}
+
+#btn:active {
+    transition: 0.2s ease-in-out;
+    transform: scale(0.6, 0.6)
+} 
+
+#output {
+    color:white;
 }

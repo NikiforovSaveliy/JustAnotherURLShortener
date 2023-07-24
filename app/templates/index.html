@@ -3,22 +3,22 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../statics/css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <title>JAUS</title>
 </head>
 <body>
-<h1>JUST ANOTHER URL SHORTENER</h1>
 
-<form id="myForm">
-    
-</form>
-
-<label for="myInput">Enter your URL: </label>
-<input type="text" id="myInput"/>
-<button type="submit" id="btn">SHORT!!!!</button>
-<div class="result">
-    <span id="outputText"></span>
-    <a id="output" href=""></a>
+<div class="container">
+    <div class="formInput">
+        <h1>JUST ANOTHER URL SHORTENER</h1>
+        <span>Enter your URL:</span>
+        <input type="text" id="myInput"/>
+        <button type="submit" id="btn">SHORT!!!!</button>    
+    </div>
+    <div class="result">
+        <span id="outputText"></span>
+        <a id="output" href=""></a>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -29,14 +29,13 @@
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
         console.log(`Статус: ${xhr.status}; Результат: ${xhr.response}`);
-        if (xhr.status == 201) {
-            let resultLink = "http://" + JSON.parse(xhr.response)["url"]
+        if (xhr.status == 201 || xhr.status == 200) {
+            let resultLink = JSON.parse(xhr.response)["url"]
             outText.textContent = `your url link: `
             out.textContent = resultLink
             out.href = resultLink
-        } else if (xhr.status == 400) {
+        } else if (xhr.status == 404) {
             window.location.href="/not_found"
-            alert("Your URL link is invalid ♿")
         } else {
             alert("Your URL link is invalid ♿")
         }
