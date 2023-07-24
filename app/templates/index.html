@@ -3,35 +3,54 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../statics/css/style.css">
     <title>JAUS</title>
 </head>
 <body>
 <h1>JUST ANOTHER URL SHORTENER</h1>
 
 <form id="myForm">
-    <label for="myInput">Enter your URL: </label>
-    <input type="text" id="myInput"/>
-    <button type="submit" id="btn">SHORT!!!!</button>
-    <script type="text/javascript">
-        const input = document.getElementById("myInput");
-        const btn = document.getElementById("btn");
-        const xhr = new XMLHttpRequest();
-            xhr.onload = function() {
-                console.log(`Статус: ${xhr.status}; Результат: ${xhr.response}`);
-                input.value = JSON.parse(xhr.response).url;
-            };
-            xhr.onerror = function() {
-                console.log('Ошибка запроса');
-            };
-        xhr.open("post", "/api/generate_short_url", true);
-        btn.addEventListener("click", () => {
-            let obj = {'url' : `${input.value}`};
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.send(JSON.stringify(obj));
-        })
-    </script>
+    
 </form>
 
+<label for="myInput">Enter your URL: </label>
+<input type="text" id="myInput"/>
+<button type="submit" id="btn">SHORT!!!!</button>
+<div class="result">
+    <span id="outputText"></span>
+    <a id="output" href=""></a>
+</div>
+
+<script type="text/javascript">
+    const input = document.getElementById("myInput")
+    const btn = document.getElementById("btn")
+    const out = document.getElementById("output")
+    const outText = document.getElementById("outputText")
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        console.log(`Статус: ${xhr.status}; Результат: ${xhr.response}`);
+        if (xhr.status == 201) {
+            let resultLink = "http://" + JSON.parse(xhr.response)["url"]
+            outText.textContent = `your url link: `
+            out.textContent = resultLink
+            out.href = resultLink
+        } else if (xhr.status == 400) {
+            window.location.href="/not_found"
+            alert("Your URL link is invalid ♿")
+        } else {
+            alert("Your URL link is invalid ♿")
+        }
+    };
+    xhr.onerror = function() {
+        console.log('Error');
+    };
+    btn.addEventListener("click", () => {
+        xhr.open("POST", "/api/generate_short_url", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        let obj = JSON.stringify({"url" : `${input.value}`})
+        xhr.send(obj);
+    })
+</script>
 
 </body>
 </html>
