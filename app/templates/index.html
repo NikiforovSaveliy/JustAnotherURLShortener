@@ -21,7 +21,11 @@
     </div>
     <div class="result">
         <span id="outputText"></span>
-        <a id="output" href=""></a>
+        <div class="out_links">
+            <a class="output" href=""></a>
+            <span class="output"></span>
+            <a class="output" href=""></a>
+        </div>
     </div>
 </div>
 
@@ -36,7 +40,7 @@
     const changeTheme = document.querySelector(".changeTheme")
     const input = document.getElementById("myInput")
     const btn = document.getElementById("btn")
-    const out = document.getElementById("output")
+    const out = document.querySelectorAll(".output")
     const outText = document.getElementById("outputText")
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
@@ -48,8 +52,11 @@
                 startLink = startLink.slice(7, 27) + "..."
             } 
             outText.textContent = `old link | short link`
-            out.textContent = `${startLink} | ${resultLink}`
-            out.href = resultLink
+            out[0].textContent = startLink
+            out[1].textContent = " | "
+            out[2].textContent = resultLink
+            out[0].href = input.value
+            out[2].href = resultLink
         } else if (xhr.status == 404) {
             window.location.href="/not_found"
         } else {

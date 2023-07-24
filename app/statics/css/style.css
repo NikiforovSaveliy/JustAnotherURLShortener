@@ -53,6 +53,11 @@ body {
     align-items: center;
     gap: 10px;
 }
+
+.result {
+    margin-top: 10px;
+}
+
 .formInput > h1, .formError > h1, .formInput > span, .result > span {
     color: var(--color-font);
 }
@@ -70,19 +75,30 @@ body {
     width: 150px;
     height: 20px;
     border: 0px;
-    border-radius: 10px;
+    border-radius: 5px;
     transition: 0.5s ease-in-out;
 }
 
 #btn:hover {
-    transform: scale(1.2, 1.2)
+    transform: scale(1.1, 1.1);
+    cursor: pointer;
 }
 
 #btn:active {
-    transition: 0.2s ease-in-out;
-    transform: scale(0.6, 0.6)
+    transition: 0.1s ease-in-out;
+    transform: scale(0.8, 0.8);
+    background-color: rgb(126, 74, 11);
 } 
 
-#output {
+.output {
     color: var(--color-font);
+}
+
+.out_links {
+    padding-right: 86px;
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
 }
