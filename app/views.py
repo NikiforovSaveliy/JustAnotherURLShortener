@@ -14,7 +14,9 @@ def get_short_url():
     exist_url = Link.get_or_none(Link.long_url == url)
     # FIXME: Check if colussion occured
     if exist_url:
-        return str(exist_url)
+        return app.response_class(response=json.dumps({'url': str(exist_url)}),
+                                  mimetype='application/json',
+                                  status=201)
     if not validate_url(url):
         return Response(status=400, response='no url in request')
 
