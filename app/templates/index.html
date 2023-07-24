@@ -9,30 +9,37 @@
 <h1>JUST ANOTHER URL SHORTENER</h1>
 
 <form id="myForm">
-    <label for="myInput">Enter your URL: </label>
-    <input type="text" id="myInput"/>
-    <button type="submit" id="btn">SHORT!!!!</button>
-    <script type="text/javascript">
-        const input = document.getElementById("myInput")
-        const btn = document.getElementById("btn")
-        const xhr = new XMLHttpRequest();
-        xhr.onload = function() {
-            console.log(`Статус: ${xhr.status}; Результат: ${xhr.response}`);
-            input.value = xhr.response
-        };
-        xhr.onerror = function() {
-            console.log('Ошибка запроса');
-        };
-        // xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.open("POST", "/api/generate_short_url", true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        btn.addEventListener("click", () => {
-            let obj = JSON.stringify({"url" : `${input.value}`})
-            xhr.send(obj);
-        })
-    </script>
+    
 </form>
 
+<label for="myInput">Enter your URL: </label>
+<input type="text" id="myInput"/>
+<button type="submit" id="btn">SHORT!!!!</button>
+<p id="output"></p>
+
+<script type="text/javascript">
+    const input = document.getElementById("myInput")
+    const btn = document.getElementById("btn")
+    const out = document.getElementById("output")
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        console.log(`Статус: ${xhr.status}; Результат: ${xhr.response}`);
+        if (xhr.status == 201) {
+            out.textContent = `your url link: ${JSON.parse(xhr.response)["url"]}`
+        } else {
+            alert("your url link is invalid")
+        }
+    };
+    xhr.onerror = function() {
+        console.log('Error');
+    };
+    btn.addEventListener("click", () => {
+        xhr.open("POST", "/api/generate_short_url", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        let obj = JSON.stringify({"url" : `${input.value}`})
+        xhr.send(obj);
+    })
+</script>
 
 </body>
 </html>
