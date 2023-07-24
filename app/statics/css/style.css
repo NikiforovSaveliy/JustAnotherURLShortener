@@ -3,21 +3,48 @@
     padding: 0;
 }
 
+.theme-light {
+    --color-font: black;
+    --color-background: rgb(189, 189, 189);
+    --color-container: white;
+}
+
+.theme-dark {
+    --color-font: white;
+    --color-background: rgb(27, 32, 32);
+    --color-container: black;
+}
+
 body {
     width: 100%;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(27, 32, 32);
+    background-color: var(--color-background);
+}
+
+.changeTheme {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100px;
+    height: 20px;
+    border: 2px var(--color-font) solid;
+    color: var(--color-font);
+}
+
+.changeTheme:hover {
+    cursor: pointer;
 }
 
 .container {
-    background-color: rgb(2, 2, 2);
-    border: 3px black solid;
+    background-color: var(--color-container);
+    border: 3px var(--color-font) solid;
     border-radius: 15px;
     height: 200px;
     padding: 20px;
+    min-width: 528px;
 }
 
 .formInput, .formError, .result {
@@ -27,14 +54,14 @@ body {
     gap: 10px;
 }
 .formInput > h1, .formError > h1, .formInput > span, .result > span {
-    color: white;
+    color: var(--color-font);
 }
 
 #myInput {
     background: transparent;
     border: 1px gray solid;
     border-radius: 5px;
-    color: white;
+    color: var(--color-font);
     font-size: 24px;
 }
 
@@ -57,5 +84,5 @@ body {
 } 
 
 #output {
-    color:white;
+    color: var(--color-font);
 }

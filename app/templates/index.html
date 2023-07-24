@@ -8,6 +8,10 @@
 </head>
 <body>
 
+<div class="changeTheme">
+    <p>Сменить тему</p>
+</div>
+
 <div class="container">
     <div class="formInput">
         <h1>JUST ANOTHER URL SHORTENER</h1>
@@ -22,6 +26,14 @@
 </div>
 
 <script type="text/javascript">
+    let curTheme = localStorage.getItem("theme")
+    if (curTheme) { // get theme of page from localstorage
+        document.documentElement.className = curTheme
+    } else {
+        document.documentElement.className = "theme-light"
+    }
+    
+    const changeTheme = document.querySelector(".changeTheme")
     const input = document.getElementById("myInput")
     const btn = document.getElementById("btn")
     const out = document.getElementById("output")
@@ -31,8 +43,12 @@
         console.log(`Статус: ${xhr.status}; Результат: ${xhr.response}`);
         if (xhr.status == 201 || xhr.status == 200) {
             let resultLink = JSON.parse(xhr.response)["url"]
-            outText.textContent = `your url link: `
-            out.textContent = resultLink
+            let startLink = input.value
+            if (startLink.length >= 20) { // Shorted old link
+                startLink = startLink.slice(7, 27) + "..."
+            } 
+            outText.textContent = `old link | short link`
+            out.textContent = `${startLink} | ${resultLink}`
             out.href = resultLink
         } else if (xhr.status == 404) {
             window.location.href="/not_found"
@@ -43,11 +59,21 @@
     xhr.onerror = function() {
         console.log('Error');
     };
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", () => { // Click to button and send POST
         xhr.open("POST", "/api/generate_short_url", true);
         xhr.setRequestHeader("Content-Type", "application/json");
         let obj = JSON.stringify({"url" : `${input.value}`})
         xhr.send(obj);
+    })
+    // Change theme of page
+    changeTheme.addEventListener("click", () => {
+        if (curTheme == "theme-dark") {
+            curTheme = "theme-light"
+        } else {
+            curTheme = "theme-dark"
+        }
+        document.documentElement.className = curTheme
+        localStorage.setItem("theme", curTheme)
     })
 </script>
 
